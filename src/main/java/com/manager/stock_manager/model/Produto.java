@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Produto {
+    // --- Seus campos existentes (sem alterações) ---
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,10 +41,16 @@ public class Produto {
     private int quantidade;
 
     @Min(value = 0, message = "O preço de venda não pode ser negativo")
-    private double preco; // Renomeei mentalmente para "preço de venda" para clareza
+    private double preco;
 
     @NotNull(message = "A categoria é obrigatória")
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+    
+    // --- NOVO CAMPO ADICIONADO ---
+    // Este campo cria a ligação entre o produto e o usuário que o criou.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

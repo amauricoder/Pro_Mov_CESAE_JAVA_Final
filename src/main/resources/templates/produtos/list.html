@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
@@ -10,60 +10,61 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Gerenciador de Estoque</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <a class="navbar-brand" th:href="@{/dashboard}">Gerenciador de Estoque</a>
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/dashboard}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/produtos/list}">Produtos</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link" th:href="@{/admin/users}">Gerenciar Usuários (Admin)</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/produtos/list}">Produtos</a></li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/admin/users}">Gerenciar Usuários</a></li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/logout}">Sair</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h2>Produtos em Estoque</h2>
-        <div sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/produtos/new}" class="btn btn-primary mb-3">Adicionar Novo Produto</a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Meus Produtos</h1>
+            <a th:href="@{/produtos/new}" class="btn btn-primary" sec:authorize="isAuthenticated()">
+                + Adicionar Novo Produto
+            </a>
         </div>
-        <table class="table table-striped">
-            <thead>
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Quantidade</th>
-                    <th>Preço</th>
+                    <th>Marca</th>
                     <th>Categoria</th>
-                    <th sec:authorize="hasRole('ADMIN')">Ações</th>
+                    <th class="text-center">Qtd.</th>
+                    <th class="text-end">Preço</th>
+                    <th class="text-center" sec:authorize="hasRole('ADMIN')">Criado por</th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="produto : ${produtos}">
                     <td th:text="${produto.id}"></td>
                     <td th:text="${produto.nome}"></td>
-                    <td th:text="${produto.descricao}"></td>
-                    <td th:text="${produto.quantidade}"></td>
-                    <td th:text="${#numbers.formatCurrency(produto.preco)}"></td>
-                    <td th:text="${produto.categoria != null ? produto.categoria.nome : 'N/A'}"></td>
-                    <td sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="btn btn-sm btn-warning">Editar</a>
-                        <a th:href="@{/produtos/delete/{id}(id=${produto.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
+                    <td th:text="${produto.marca}"></td>
+                    <td th:text="${produto.categoria.nome}"></td>
+                    <td class="text-center" th:text="${produto.quantidade}"></td>
+                    <td class="text-end" th:text="'R$ ' + ${#numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')}"></td>
+                    <td class="text-center" sec:authorize="hasRole('ADMIN')" th:text="${produto.user.username}"></td>
+                    
+                    <td class="text-center">
+                        <div th:if="${#authorization.expression('hasRole(''ADMIN'')') or #authentication.name == produto.user.username}">
+                            <a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <a th:href="@{/produtos/delete/{id}(id=${produto.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
+                        </div>
                     </td>
+                </tr>
+                <tr th:if="${produtos.isEmpty()}">
+                    <td colspan="8" class="text-center">Você ainda não cadastrou nenhum produto.</td>
                 </tr>
             </tbody>
         </table>
