@@ -62,9 +62,9 @@ public class DataInitializer {
                 // Criar Produtos de exemplo
              // Criar Produtos com os novos campos
                 // Assinatura do construtor: id, nome, descricao, marca, dataAbertura, dataValidade, quantidade, valorCusto, precoVenda, categoria
-                produtoRepository.save(new Produto(null, "Smartphone Z", "Smartphone de última geração com 5G", "TechCorp", LocalDate.now().minusMonths(1), LocalDate.now().plusYears(2), 50, 950.00, 1599.99, eletronicos));
-                produtoRepository.save(new Produto(null, "Camiseta Básica", "Camiseta 100% algodão, cor preta", "FashionBrand", LocalDate.now().minusDays(20), null, 200, 25.50, 59.90, vestuario));
-                produtoRepository.save(new Produto(null, "Laptop Pro", "Laptop de alta performance para trabalho", "GlobalPC", LocalDate.now().minusDays(10), LocalDate.now().plusYears(3), 30, 3800.00, 5200.00, eletronicos));
+                produtoRepository.save(new Produto(null, "Smartphone Z", "Smartphone de última geração com 5G", "TechCorp", LocalDate.now().minusMonths(1), LocalDate.now().plusYears(2), 50,  1599.99, eletronicos));
+                produtoRepository.save(new Produto(null, "Camiseta Básica", "Camiseta 100% algodão, cor preta", "FashionBrand", LocalDate.now().minusDays(20), null, 200, 59.90, vestuario));
+                produtoRepository.save(new Produto(null, "Laptop Pro", "Laptop de alta performance para trabalho", "GlobalPC", LocalDate.now().minusDays(10), LocalDate.now().plusYears(3), 30, 5200.00, eletronicos));
             }
         };
     }

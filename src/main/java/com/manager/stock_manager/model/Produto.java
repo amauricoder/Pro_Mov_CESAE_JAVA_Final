@@ -39,13 +39,6 @@ public class Produto {
     @Min(value = 0, message = "A quantidade não pode ser negativa")
     private int quantidade;
 
-    // --- NOVO CAMPO DE VALOR ADICIONADO ---
-
-    @Min(value = 0, message = "O valor de custo não pode ser negativo")
-    private double valorDeCusto;
-
-    // --- FIM DO NOVO CAMPO ---
-
     @Min(value = 0, message = "O preço de venda não pode ser negativo")
     private double preco; // Renomeei mentalmente para "preço de venda" para clareza
 

@@ -18,10 +18,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity // Habilita @PreAuthorize
 public class SecurityConfig {
 
-    // O campo 'userDetailsService' e o construtor foram removidos.
-    // O Spring Security irá autoconfigurar o provedor de autenticação
-    // usando o seu bean UserDetailsServiceImpl.
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -38,6 +34,7 @@ public class SecurityConfig {
                     AntPathRequestMatcher.antMatcher("/error")
                 ).permitAll() // Permite acesso público
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasRole("ADMIN") // Páginas apenas para ADMIN
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).hasRole("ADMIN")   // <-- ADICIONE A NOVA REGRA AQUI
                 .anyRequest().authenticated() // Qualquer outra requisição precisa de autenticação
             )
             .formLogin(form -> form
