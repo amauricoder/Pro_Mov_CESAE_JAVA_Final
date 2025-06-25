@@ -17,40 +17,38 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Produto {
-    // --- Seus campos existentes (sem alterações) ---
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank(message = "O nome é obrigatório")
-    private String nome;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String descricao;
+	@NotBlank(message = "O nome é obrigatório")
+	private String nome;
 
-    @NotBlank(message = "A marca é obrigatória")
-    private String marca;
+	private String descricao;
 
-    @NotNull(message = "A data de abertura é obrigatória")
-    @PastOrPresent(message = "A data de abertura não pode ser uma data futura")
-    private LocalDate dataDeAbertura;
+	@NotBlank(message = "A marca é obrigatória")
+	private String marca;
 
-    @Future(message = "A data de validade deve ser uma data futura")
-    private LocalDate dataDeValidade;
+	@PastOrPresent(message = "A data de abertura não pode ser uma data futura")
+	private LocalDate dataDeAbertura;
 
-    @Min(value = 0, message = "A quantidade não pode ser negativa")
-    private int quantidade;
+	@Future(message = "A data de validade deve ser uma data futura")
+	private LocalDate dataDeValidade;
 
-    @Min(value = 0, message = "O preço de venda não pode ser negativo")
-    private double preco;
+	@Min(value = 0, message = "A quantidade não pode ser negativa")
+	private int quantidade;
 
-    @NotNull(message = "A categoria é obrigatória")
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-    
-    // --- NOVO CAMPO ADICIONADO ---
-    // Este campo cria a ligação entre o produto e o usuário que o criou.
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	@Min(value = 0, message = "O preço de venda não pode ser negativo")
+	private double preco;
+
+	@NotNull(message = "A categoria é obrigatória")
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
+
+	// Este campo cria a ligação entre o produto e o usuário que o criou.
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 }

@@ -1,4 +1,4 @@
-package com.manager.stock_manager.model; // Pacote ajustado
+package com.manager.stock_manager.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,5 +13,5 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name; // Ex: ROLE_ADMIN, ROLE_USER
+    private String name; //Ex: ROLE_ADMIN, ROLE_USER
 }
