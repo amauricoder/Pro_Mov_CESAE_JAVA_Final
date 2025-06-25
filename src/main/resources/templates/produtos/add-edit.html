@@ -39,26 +39,58 @@
         <h2 th:text="${produto.id == null ? 'Adicionar Novo Produto' : 'Editar Produto'}"></h2>
         <form th:action="@{/produtos/save}" th:object="${produto}" method="post">
             <input type="hidden" th:field="*{id}">
+            
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome:</label>
+                <label for="nome" class="form-label">Nome do Produto:</label>
                 <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
                 <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></div>
             </div>
+            
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição:</label>
                 <textarea id="descricao" th:field="*{descricao}" class="form-control"></textarea>
-                <div th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></div>
             </div>
+
             <div class="mb-3">
-                <label for="quantidade" class="form-label">Quantidade:</label>
-                <input type="number" id="quantidade" th:field="*{quantidade}" class="form-control" required min="0">
-                <div th:if="${#fields.hasErrors('quantidade')}" th:errors="*{quantidade}" class="text-danger"></div>
+                <label for="marca" class="form-label">Marca:</label>
+                <input type="text" id="marca" th:field="*{marca}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" class="text-danger"></div>
             </div>
-            <div class="mb-3">
-                <label for="preco" class="form-label">Preço:</label>
-                <input type="number" step="0.01" id="preco" th:field="*{preco}" class="form-control" required min="0.01">
-                <div th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="dataDeAbertura" class="form-label">Data de Abertura:</label>
+                    <input type="date" id="dataDeAbertura" th:field="*{dataDeAbertura}" class="form-control" required>
+                    <div th:if="${#fields.hasErrors('dataDeAbertura')}" th:errors="*{dataDeAbertura}" class="text-danger"></div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="dataDeValidade" class="form-label">Data de Validade (Opcional):</label>
+                    <input type="date" id="dataDeValidade" th:field="*{dataDeValidade}" class="form-control">
+                    <div th:if="${#fields.hasErrors('dataDeValidade')}" th:errors="*{dataDeValidade}" class="text-danger"></div>
+                </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="quantidade" class="form-label">Quantidade:</label>
+                    <input type="number" id="quantidade" th:field="*{quantidade}" class="form-control" required min="0">
+                    <div th:if="${#fields.hasErrors('quantidade')}" th:errors="*{quantidade}" class="text-danger"></div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="valorDeCusto" class="form-label">Valor de Custo (R$):</label>
+                    <input type="number" step="0.01" id="valorDeCusto" th:field="*{valorDeCusto}" class="form-control" required min="0.00">
+                    <div th:if="${#fields.hasErrors('valorDeCusto')}" th:errors="*{valorDeCusto}" class="text-danger"></div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="preco" class="form-label">Preço de Venda (R$):</label>
+                    <input type="number" step="0.01" id="preco" th:field="*{preco}" class="form-control" required min="0.01">
+                    <div th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="text-danger"></div>
+                </div>
+            </div>
+            
             <div class="mb-3">
                 <label for="categoria" class="form-label">Categoria:</label>
                 <select id="categoria" th:field="*{categoria}" class="form-control" required>
@@ -67,6 +99,7 @@
                 </select>
                 <div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="text-danger"></div>
             </div>
+            
             <button type="submit" class="btn btn-primary">Salvar</button>
             <a th:href="@{/produtos/list}" class="btn btn-secondary">Cancelar</a>
         </form>

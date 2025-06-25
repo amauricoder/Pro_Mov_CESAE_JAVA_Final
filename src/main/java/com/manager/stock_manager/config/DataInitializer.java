@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,9 +60,11 @@ public class DataInitializer {
                 Categoria vestuario = categoriaRepository.save(new Categoria(null, "Vestuário"));
 
                 // Criar Produtos de exemplo
-                produtoRepository.save(new Produto(null, "Smartphone X", "Smartphone de última geração", 50, 1200.00, eletronicos));
-                produtoRepository.save(new Produto(null, "Camiseta Algodão", "Camiseta 100% algodão", 200, 49.90, vestuario));
-                produtoRepository.save(new Produto(null, "Laptop Gamer", "Laptop de alta performance para jogos", 10, 5500.00, eletronicos));
+             // Criar Produtos com os novos campos
+                // Assinatura do construtor: id, nome, descricao, marca, dataAbertura, dataValidade, quantidade, valorCusto, precoVenda, categoria
+                produtoRepository.save(new Produto(null, "Smartphone Z", "Smartphone de última geração com 5G", "TechCorp", LocalDate.now().minusMonths(1), LocalDate.now().plusYears(2), 50, 950.00, 1599.99, eletronicos));
+                produtoRepository.save(new Produto(null, "Camiseta Básica", "Camiseta 100% algodão, cor preta", "FashionBrand", LocalDate.now().minusDays(20), null, 200, 25.50, 59.90, vestuario));
+                produtoRepository.save(new Produto(null, "Laptop Pro", "Laptop de alta performance para trabalho", "GlobalPC", LocalDate.now().minusDays(10), LocalDate.now().plusYears(3), 30, 3800.00, 5200.00, eletronicos));
             }
         };
     }

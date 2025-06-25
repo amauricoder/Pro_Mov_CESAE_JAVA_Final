@@ -1,4 +1,4 @@
-package com.manager.stock_manager.model; // Pacote ajustado
+package com.manager.stock_manager.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Future;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -22,11 +26,28 @@ public class Produto {
 
     private String descricao;
 
+    @NotBlank(message = "A marca é obrigatória")
+    private String marca;
+
+    @NotNull(message = "A data de abertura é obrigatória")
+    @PastOrPresent(message = "A data de abertura não pode ser uma data futura")
+    private LocalDate dataDeAbertura;
+
+    @Future(message = "A data de validade deve ser uma data futura")
+    private LocalDate dataDeValidade;
+
     @Min(value = 0, message = "A quantidade não pode ser negativa")
     private int quantidade;
 
-    @Min(value = 0, message = "O preço não pode ser negativo")
-    private double preco;
+    // --- NOVO CAMPO DE VALOR ADICIONADO ---
+
+    @Min(value = 0, message = "O valor de custo não pode ser negativo")
+    private double valorDeCusto;
+
+    // --- FIM DO NOVO CAMPO ---
+
+    @Min(value = 0, message = "O preço de venda não pode ser negativo")
+    private double preco; // Renomeei mentalmente para "preço de venda" para clareza
 
     @NotNull(message = "A categoria é obrigatória")
     @ManyToOne
