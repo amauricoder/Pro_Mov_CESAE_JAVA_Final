@@ -1,7 +1,3 @@
-Aí estão os detalhes dos projetos formatados em Markdown:
-
----
-
 # Projetos de Desenvolvimento
 
 Aqui estão três propostas de projetos, cada um com diferentes níveis de complexidade e requisitos, projetados para aprimorar suas habilidades de desenvolvimento.
