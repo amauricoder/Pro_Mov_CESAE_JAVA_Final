@@ -28,6 +28,7 @@ O principal objetivo é monitorar os alimentos que tenho em casa e suas validade
 - Adicionar a possibilidade de entregar ao usuario uma lista de mercado automatica com base nos produtos que ele tem acabando/perto de vencer - Desafio - Aprender como fazer.;
 - Mandar notificação ao usuário quando algo no estoque está próximo a data de validade  - Desafio - Aprender como fazer;
 - Refatorar o código - Desafio - Ter tempo;
+- Adicionar a possibilidade do ADMIN de banir usuarios;
 - Quando eu pensar em algo mais que eu precise, coloco aqui...
 
 
